@@ -5,17 +5,12 @@ import os
 import openpyxl
 wb = openpyxl.Workbook()
 wb.create_sheet(index=0, title="Sales Data")
-
-connectionString = """
-Driver={SQL Server};
-Server=157.201.228.85;
-Database=AdventureWorks2008R2;
-UID=SQLstudent;
-pwd=sqlbyu1daho;
-Trusted_Connection=no;
-"""
-
-conn = pyodbc.connect(connectionString)
+conn = pyodbc.connect("Driver={SQL Server};"
+                      "Server=157.201.228.85;"
+                      "Database=AdventureWorks2008R2;"
+                      "UID=SQLstudent;"
+                      "pwd=sqlbyu1daho;"
+                      "Trusted_Connection=no;")
 
 cursor = conn.cursor()
 cursor.execute("SELECT p.Name, SUM(s.LineTotal)"
