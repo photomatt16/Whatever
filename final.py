@@ -4,7 +4,8 @@ import requests
 import os
 import openpyxl
 wb = openpyxl.Workbook()
-wb.create_sheet(index=0, title="Sales Data")
+sheet = wb.create_sheet(index=0, title="Sales Data")
+
 conn = pyodbc.connect("Driver={SQL Server};"
                       "Server=157.201.228.85;"
                       "Database=AdventureWorks2008R2;"
@@ -25,15 +26,13 @@ cursor.execute("SELECT p.Name, SUM(s.LineTotal)"
 
 for row in cursor:
 
-    mydict = {rows[0]:rows[1] for rows in cursor}
+    myDict = {rows[0]: rows[1] for rows in cursor}
 
     i = 1
-    for k, v in mydict.items():
+    for k, v in myDict.items():
         sheet["A"+str(i)] = k
         sheet["B"+str(i)] = v
         i += 1
 
 os.chdir("c:\\Users\\Skywalker\\Desktop\\Python")
 wb.save("newdata.xlsx")
-
-
